@@ -4,18 +4,6 @@ Aplicativo mobile desenvolvido com **React Native** e **TypeScript** para facili
 
 O app simula o funcionamento de um sistema de pátio inteligente, onde cada moto possui um identificador UWB único e está vinculada a um sensor. Ele complementa a proposta geral do projeto, oferecendo uma interface funcional, intuitiva e com persistência de dados.
 
----
-
-## 👥 Integrantes
-
-| Nome                                | RM       | GitHub                                |
-|-------------------------------------|----------|----------------------------------------|
-| Murilo Ribeiro Santos               | RM555109 | [@murilors27](https://github.com/murilors27) |
-| Thiago Garcia Tonato                | RM99404  | [@thiago-tonato](https://github.com/thiago-tonato) |
-| Ian Madeira Gonçalves da Silva      | RM555502 | [@IanMadeira](https://github.com/IanMadeira) |
-
-**Curso**: Análise e Desenvolvimento de Sistemas  
-**Instituição**: FIAP – Faculdade de Informática e Administração Paulista
 
 ---
 
@@ -57,3 +45,16 @@ npm install
 ### 3. Iniciar o projeto
 
 npx expo start
+
+---
+
+## 👥 Integrantes
+
+| Nome                                | RM       | GitHub                                |
+|-------------------------------------|----------|----------------------------------------|
+| Murilo Ribeiro Santos               | RM555109 | [@murilors27](https://github.com/murilors27) |
+| Thiago Garcia Tonato                | RM99404  | [@thiago-tonato](https://github.com/thiago-tonato) |
+| Ian Madeira Gonçalves da Silva      | RM555502 | [@IanMadeira](https://github.com/IanMadeira) |
+
+**Curso**: Análise e Desenvolvimento de Sistemas  
+**Instituição**: FIAP – Faculdade de Informática e Administração Paulista
