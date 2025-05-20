@@ -28,6 +28,7 @@ O app simula o funcionamento de um sistema de pátio inteligente, onde cada moto
 - ✅ Validação de campos obrigatórios
 - ✅ Verificação de duplicidade (Sensor ID e UWB)
 - ✅ Exibição da última moto cadastrada
+- ✅ Inclusão do campo “Status” com ícones (Disponível, Em uso, Manutenção)
 - ✅ Estilização global baseada em tema
 - ✅ Estrutura pronta para expansão (ex: integração com back-end Java)
 

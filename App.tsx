@@ -8,6 +8,7 @@ import CadastroScreen from './src/screens/CadastroScreen';
 import PreferenciasScreen from './src/screens/PreferenciasScreen';
 import SobreScreen from './src/screens/SobreScreen';
 
+
 import { ThemeProvider, useTheme } from './src/context/ThemeContext';
 import { RootStackParamList } from './src/types';
 

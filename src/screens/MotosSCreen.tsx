@@ -8,7 +8,8 @@ type Moto = {
   modelo: string;
   cor: string;
   identificadorUWB: string;
-  sensorId: number;
+  sensorId: number | string;
+  status: string;
 };
 
 export default function MotosScreen() {
@@ -20,17 +21,30 @@ export default function MotosScreen() {
     try {
       const dados = await AsyncStorage.getItem('motos');
       if (dados) {
-      const lista = JSON.parse(dados);
-      setMotos(lista);
+        const lista = JSON.parse(dados);
+        setMotos(lista);
       }
     } catch (error) {
-      console.error('Erro ao carregar moto', error);
+      console.error('Erro ao carregar motos', error);
     }
   };
 
   useEffect(() => {
     carregarMotos();
   }, []);
+
+  const getStatusIcon = (status: string): string => {
+    switch (status) {
+      case 'Disponível':
+        return '🟢';
+      case 'Em uso':
+        return '🟡';
+      case 'Manutenção':
+        return '🔧';
+      default:
+        return '❓';
+    }
+  };
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
@@ -44,6 +58,9 @@ export default function MotosScreen() {
             <Text style={{ color: colors.text }}>Cor: {item.cor}</Text>
             <Text style={{ color: colors.text }}>Sensor ID: {item.sensorId}</Text>
             <Text style={{ color: colors.text }}>Identificador UWB: {item.identificadorUWB}</Text>
+            <Text style={{ color: colors.text }}>
+              Status: {getStatusIcon(item.status)} {item.status}
+            </Text>
           </View>
         )}
       />

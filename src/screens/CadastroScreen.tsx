@@ -3,12 +3,14 @@ import { View, Text, TextInput, Button, StyleSheet, ScrollView, Alert } from 're
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '../context/ThemeContext';
 import { lightTheme, darkTheme } from '../styles/colors';
+import { Picker } from '@react-native-picker/picker';
 
 type Moto = {
   modelo: string;
   cor: string;
   identificadorUWB: string;
   sensorId: string;
+  status: string;
 };
 
 export default function CadastroScreen() {
@@ -17,6 +19,7 @@ export default function CadastroScreen() {
   const [identificadorUWB, setIdentificadorUWB] = useState('');
   const [sensorId, setSensorId] = useState('');
   const [motoSalva, setMotoSalva] = useState<Moto | null>(null);
+  const [status, setStatus] = useState('Disponível');
 
   const { theme } = useTheme();
   const colors = theme === 'dark' ? darkTheme : lightTheme;
@@ -36,7 +39,7 @@ export default function CadastroScreen() {
   const salvarDados = async () => {
     if (!validarFormulario()) return;
   
-    const novaMoto: Moto = { modelo, cor, identificadorUWB, sensorId };
+    const novaMoto: Moto = { modelo, cor, identificadorUWB, sensorId, status };
   
     try {
       const listaSalva = await AsyncStorage.getItem('motos');
@@ -89,6 +92,7 @@ export default function CadastroScreen() {
     setCor('');
     setIdentificadorUWB('');
     setSensorId('');
+    setStatus('Disponível');
   };
 
   useEffect(() => {
@@ -130,6 +134,25 @@ export default function CadastroScreen() {
         onChangeText={setSensorId}
       />
 
+      <Text style={{ color: colors.text, fontSize: 16, marginBottom: 8 }}>Status da Moto:</Text>
+      <View style={[styles.pickerContainer, { backgroundColor: colors.input }]}>
+        <Picker
+          selectedValue={status}
+          onValueChange={(itemValue) => setStatus(itemValue)}
+          dropdownIconColor={colors.text}
+          style={{
+            color: colors.text,
+            backgroundColor: colors.input, // aqui resolve o fundo
+          }}
+        >
+          <Picker.Item label="Disponível" value="Disponível" />
+          <Picker.Item label="Em uso" value="Em uso" />
+          <Picker.Item label="Manutenção" value="Manutenção" />
+        </Picker>
+      </View>
+
+
+
       <View style={styles.button}>
         <Button title="Salvar Moto" onPress={salvarDados} color={colors.primary} />
       </View>
@@ -155,6 +178,7 @@ export default function CadastroScreen() {
           <Text style={{ color: colors.text }}>Cor: {motoSalva.cor}</Text>
           <Text style={{ color: colors.text }}>Identificador UWB: {motoSalva.identificadorUWB}</Text>
           <Text style={{ color: colors.text }}>Sensor ID: {motoSalva.sensorId}</Text>
+          <Text style={{ color: colors.text }}>Status: {motoSalva.status}</Text>
         </View>
       )}
     </ScrollView>
@@ -168,4 +192,5 @@ const styles = StyleSheet.create({
   button: { marginBottom: 15 },
   preview: { padding: 15, borderRadius: 8, marginTop: 20 },
   previewTitle: { fontWeight: 'bold', marginBottom: 10, fontSize: 16 },
+  pickerContainer: {borderRadius: 8, marginBottom: 20,},
 });
