@@ -9,10 +9,10 @@ export default function PreferenciasScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Text style={[styles.title, { color: colors.text }]}>⚙️ Preferências</Text>
+      <Text style={[styles.title, { color: colors.text }]}>{'⚙️ Preferências'}</Text>
 
       <View style={styles.item}>
-        <Text style={[styles.label, { color: colors.text }]}>Modo Escuro:</Text>
+        <Text style={[styles.label, { color: colors.text }]}>{'Modo Escuro:'}</Text>
         <Switch
           value={theme === 'dark'}
           onValueChange={toggleTheme}
@@ -21,7 +21,9 @@ export default function PreferenciasScreen() {
         />
       </View>
 
-      <Text style={[styles.status, { color: colors.text }]}>Modo Escuro está {theme === 'dark' ? 'Ativado' : 'Desativado'}</Text>
+      <Text style={[styles.status, { color: colors.text }]}>
+        {`Modo Escuro está ${theme === 'dark' ? 'Ativado' : 'Desativado'}`}
+      </Text>
     </View>
   );
 }
@@ -31,5 +33,5 @@ const styles = StyleSheet.create({
   title: { fontSize: 22, fontWeight: 'bold', marginBottom: 25, textAlign: 'center' },
   item: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 25 },
   label: { fontSize: 18 },
-  status: { fontSize: 16, textAlign: 'center' },
+  status: { fontSize: 16, textAlign: 'center', marginTop: 20 },
 });

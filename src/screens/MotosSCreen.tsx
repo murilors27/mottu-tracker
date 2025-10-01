@@ -21,11 +21,13 @@ export default function MotosScreen() {
     try {
       const dados = await AsyncStorage.getItem('motos');
       if (dados) {
-        const lista = JSON.parse(dados);
-        setMotos(lista);
+        setMotos(JSON.parse(dados));
+      } else {
+        setMotos([]);
       }
     } catch (error) {
       console.error('Erro ao carregar motos', error);
+      setMotos([]);
     }
   };
 
@@ -51,7 +53,7 @@ export default function MotosScreen() {
       <Text style={[styles.title, { color: colors.text }]}>📍 Motos Localizadas</Text>
       <FlatList
         data={motos}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(_, index) => index.toString()}
         renderItem={({ item }) => (
           <View style={[styles.card, { backgroundColor: colors.card }]}>
             <Text style={[styles.model, { color: colors.text }]}>{item.modelo}</Text>
@@ -63,6 +65,11 @@ export default function MotosScreen() {
             </Text>
           </View>
         )}
+        ListEmptyComponent={
+          <Text style={{ color: colors.text, textAlign: 'center', marginTop: 20 }}>
+            Nenhuma moto cadastrada ainda 🚫
+          </Text>
+        }
       />
     </View>
   );

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ScrollView, Alert } from 'react-native';
+import { View, Text, TextInput, StyleSheet, ScrollView, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '../context/ThemeContext';
 import { lightTheme, darkTheme } from '../styles/colors';
 import { Picker } from '@react-native-picker/picker';
+import AppButton from '../components/AppButton';
 
 type Moto = {
   modelo: string;
@@ -24,6 +25,8 @@ export default function CadastroScreen() {
   const { theme } = useTheme();
   const colors = theme === 'dark' ? darkTheme : lightTheme;
 
+  const placeholderColor = '#888';
+
   const validarFormulario = () => {
     if (!modelo || !cor || !identificadorUWB || !sensorId) {
       Alert.alert('Campos obrigatórios', 'Por favor, preencha todos os campos.');
@@ -38,9 +41,9 @@ export default function CadastroScreen() {
 
   const salvarDados = async () => {
     if (!validarFormulario()) return;
-  
+
     const novaMoto: Moto = { modelo, cor, identificadorUWB, sensorId, status };
-  
+
     try {
       const listaSalva = await AsyncStorage.getItem('motos');
       const lista: Moto[] = listaSalva ? JSON.parse(listaSalva) : [];
@@ -50,15 +53,15 @@ export default function CadastroScreen() {
           moto.identificadorUWB === identificadorUWB ||
           moto.sensorId === sensorId
       );
-  
+
       if (duplicada) {
         Alert.alert('Erro', 'Já existe uma moto com esse identificador UWB ou Sensor ID.');
         return;
       }
-  
+
       lista.push(novaMoto);
       await AsyncStorage.setItem('motos', JSON.stringify(lista));
-  
+
       Alert.alert('Sucesso', 'Moto salva com sucesso!');
       handleLimpar();
       carregarDadosSalvos();
@@ -81,8 +84,7 @@ export default function CadastroScreen() {
       } else {
         setMotoSalva(null);
       }
-    } catch (error) {
-      console.error('Erro ao carregar dados salvos', error);
+    } catch {
       setMotoSalva(null);
     }
   };
@@ -100,97 +102,77 @@ export default function CadastroScreen() {
   }, []);
 
   return (
-    <ScrollView contentContainerStyle={[styles.container, { backgroundColor: colors.background }]}>
-      <Text style={[styles.title, { color: colors.text }]}>📝 Cadastro de Moto</Text>
+    <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
+      <View style={styles.container}>
+        <Text style={[styles.title, { color: colors.text }]}>📝 Cadastro de Moto</Text>
 
-      <TextInput
-        style={[styles.input, { backgroundColor: colors.input, color: colors.text }]}
-        placeholder="Modelo"
-        placeholderTextColor={colors.text}
-        value={modelo}
-        onChangeText={setModelo}
-      />
-      <TextInput
-        style={[styles.input, { backgroundColor: colors.input, color: colors.text }]}
-        placeholder="Cor"
-        placeholderTextColor={colors.text}
-        value={cor}
-        onChangeText={setCor}
-      />
-      <TextInput
-        style={[styles.input, { backgroundColor: colors.input, color: colors.text }]}
-        placeholder="Identificador UWB"
-        placeholderTextColor={colors.text}
-        keyboardType="numeric"
-        value={identificadorUWB}
-        onChangeText={setIdentificadorUWB}
-      />
-      <TextInput
-        style={[styles.input, { backgroundColor: colors.input, color: colors.text }]}
-        placeholder="Sensor ID"
-        placeholderTextColor={colors.text}
-        keyboardType="numeric"
-        value={sensorId}
-        onChangeText={setSensorId}
-      />
+        <TextInput
+          style={[styles.input, { backgroundColor: colors.input, color: colors.text }]}
+          placeholder="Modelo"
+          placeholderTextColor={placeholderColor}
+          value={modelo}
+          onChangeText={setModelo}
+        />
+        <TextInput
+          style={[styles.input, { backgroundColor: colors.input, color: colors.text }]}
+          placeholder="Cor"
+          placeholderTextColor={placeholderColor}
+          value={cor}
+          onChangeText={setCor}
+        />
+        <TextInput
+          style={[styles.input, { backgroundColor: colors.input, color: colors.text }]}
+          placeholder="Identificador UWB"
+          placeholderTextColor={placeholderColor}
+          value={identificadorUWB}
+          onChangeText={setIdentificadorUWB}
+        />
+        <TextInput
+          style={[styles.input, { backgroundColor: colors.input, color: colors.text }]}
+          placeholder="Sensor ID"
+          placeholderTextColor={placeholderColor}
+          keyboardType="numeric"
+          value={sensorId}
+          onChangeText={setSensorId}
+        />
 
-      <Text style={{ color: colors.text, fontSize: 16, marginBottom: 8 }}>Status da Moto:</Text>
-      <View style={[styles.pickerContainer, { backgroundColor: colors.input }]}>
-        <Picker
-          selectedValue={status}
-          onValueChange={(itemValue) => setStatus(itemValue)}
-          dropdownIconColor={colors.text}
-          style={{
-            color: colors.text,
-            backgroundColor: colors.input, // aqui resolve o fundo
-          }}
-        >
-          <Picker.Item label="Disponível" value="Disponível" />
-          <Picker.Item label="Em uso" value="Em uso" />
-          <Picker.Item label="Manutenção" value="Manutenção" />
-        </Picker>
-      </View>
-
-
-
-      <View style={styles.button}>
-        <Button title="Salvar Moto" onPress={salvarDados} color={colors.primary} />
-      </View>
-
-      <View style={styles.button}>
-        <Button title="Limpar Campos" onPress={handleLimpar} color="#d9534f" />
-      </View>
-
-      <Button
-        title="🧹 Limpar Todas as Motos (Teste)"
-        onPress={async () => {
-        await AsyncStorage.removeItem('motos');
-        Alert.alert('Lista limpa!');
-        setMotoSalva(null);
-        }}
-        color="#dc3545"
-      />
-
-      {motoSalva && (
-        <View style={[styles.preview, { backgroundColor: colors.card }]}>
-          <Text style={[styles.previewTitle, { color: colors.text }]}>📦 Última Moto Salva:</Text>
-          <Text style={{ color: colors.text }}>Modelo: {motoSalva.modelo}</Text>
-          <Text style={{ color: colors.text }}>Cor: {motoSalva.cor}</Text>
-          <Text style={{ color: colors.text }}>Identificador UWB: {motoSalva.identificadorUWB}</Text>
-          <Text style={{ color: colors.text }}>Sensor ID: {motoSalva.sensorId}</Text>
-          <Text style={{ color: colors.text }}>Status: {motoSalva.status}</Text>
+        <Text style={{ color: colors.text, fontSize: 16, marginBottom: 8 }}>Status da Moto:</Text>
+        <View style={[styles.pickerContainer, { backgroundColor: colors.input }]}>
+          <Picker
+            selectedValue={status}
+            onValueChange={(itemValue) => setStatus(itemValue)}
+            dropdownIconColor={colors.text}
+            style={{ color: colors.text }}
+          >
+            <Picker.Item label="Disponível" value="Disponível" />
+            <Picker.Item label="Em uso" value="Em uso" />
+            <Picker.Item label="Manutenção" value="Manutenção" />
+          </Picker>
         </View>
-      )}
+
+        <AppButton title="Salvar Moto" onPress={salvarDados} />
+        <AppButton title="Limpar Campos" onPress={handleLimpar} variant="danger" />
+
+        {motoSalva && (
+          <View style={[styles.preview, { backgroundColor: colors.card }]}>
+            <Text style={[styles.previewTitle, { color: colors.text }]}>📦 Última Moto Salva:</Text>
+            <Text style={{ color: colors.text }}>Modelo: {motoSalva.modelo}</Text>
+            <Text style={{ color: colors.text }}>Cor: {motoSalva.cor}</Text>
+            <Text style={{ color: colors.text }}>Identificador UWB: {motoSalva.identificadorUWB}</Text>
+            <Text style={{ color: colors.text }}>Sensor ID: {motoSalva.sensorId}</Text>
+            <Text style={{ color: colors.text }}>Status: {motoSalva.status}</Text>
+          </View>
+        )}
+      </View>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { padding: 20 },
+  container: { flex: 1, padding: 20 },
   title: { fontSize: 22, fontWeight: 'bold', marginBottom: 20, textAlign: 'center' },
   input: { padding: 12, borderRadius: 8, marginBottom: 15, fontSize: 16 },
-  button: { marginBottom: 15 },
   preview: { padding: 15, borderRadius: 8, marginTop: 20 },
   previewTitle: { fontWeight: 'bold', marginBottom: 10, fontSize: 16 },
-  pickerContainer: {borderRadius: 8, marginBottom: 20,},
+  pickerContainer: { borderRadius: 8, marginBottom: 20 },
 });

@@ -18,9 +18,14 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const carregarTema = async () => {
-      const temaSalvo = await AsyncStorage.getItem('preferenciaModoEscuro');
-      if (temaSalvo !== null) {
-        setTheme(JSON.parse(temaSalvo) ? 'dark' : 'light');
+      try {
+        const temaSalvo = await AsyncStorage.getItem('preferenciaModoEscuro');
+        if (temaSalvo !== null) {
+          const isDark = JSON.parse(temaSalvo);
+          setTheme(isDark ? 'dark' : 'light');
+        }
+      } catch {
+        setTheme('light');
       }
     };
     carregarTema();
@@ -29,7 +34,10 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const toggleTheme = async () => {
     const novoTema = theme === 'light' ? 'dark' : 'light';
     setTheme(novoTema);
-    await AsyncStorage.setItem('preferenciaModoEscuro', JSON.stringify(novoTema === 'dark'));
+    try {
+      await AsyncStorage.setItem('preferenciaModoEscuro', JSON.stringify(novoTema === 'dark'));
+    } catch {
+    }
   };
 
   return (
