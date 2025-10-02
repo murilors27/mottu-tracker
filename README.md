@@ -70,21 +70,25 @@ npx expo start
 
 ## 📂 Estrutura de Pastas
 
+```
+
 mottu-tracker/
 ├── src/
-│ ├── components/ # Componentes reutilizáveis (ex: botões customizados)
-│ ├── context/ # Contextos globais de autenticação e tema
-│ ├── screens/ # Telas principais do app (Login, Home, Cadastro, etc.)
-│ ├── services/ # Serviços de integração com a API (ex: cadastro e listagem de motos)
-│ ├── styles/ # Estilos globais e definição de temas (claro/escuro)
-│ └── types.ts # Tipos auxiliares do TypeScript
+│   ├── components/   # Componentes reutilizáveis (ex: botões customizados)
+│   ├── context/      # Contextos globais de autenticação e tema
+│   ├── screens/      # Telas principais do app (Login, Home, Cadastro, etc.)
+│   ├── services/     # Serviços de integração com a API (ex: cadastro e listagem de motos)
+│   ├── styles/       # Estilos globais e definição de temas (claro/escuro)
+│   └── types.ts      # Tipos auxiliares do TypeScript
 │
-├── App.tsx # Ponto de entrada do aplicativo
-├── app.json # Configuração do Expo
-├── index.ts # Arquivo inicial de execução
-├── package.json # Dependências e scripts do projeto
-├── tsconfig.json # Configuração do TypeScript
-└── README.md # Documentação do projeto
+├── App.tsx           # Ponto de entrada do aplicativo
+├── app.json          # Configuração do Expo
+├── index.ts          # Arquivo inicial de execução
+├── package.json      # Dependências e scripts do projeto
+├── tsconfig.json     # Configuração do TypeScript
+└── README.md         # Documentação do projeto
+
+```
 
 ---
 
