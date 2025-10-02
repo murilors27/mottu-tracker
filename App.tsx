@@ -5,8 +5,6 @@ import { AuthProvider, useAuth } from "./src/context/AuthContext";
 import { ThemeProvider } from "./src/context/ThemeContext";
 
 import LoginScreen from "./src/screens/LoginScreen";
-import RegisterScreen from "./src/screens/RegisterScreen";
-
 import HomeScreen from "./src/screens/HomeScreen";
 import MotosScreen from "./src/screens/MotosSCreen";
 import CadastroScreen from "./src/screens/CadastroScreen";
@@ -16,13 +14,13 @@ import SobreScreen from "./src/screens/SobreScreen";
 const Stack = createNativeStackNavigator();
 
 function Routes() {
-  const { user, initializing } = useAuth();
+  const { token, initializing } = useAuth();
 
   if (initializing) return null;
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {user ? (
+      {token ? (
         <>
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Motos" component={MotosScreen} />
@@ -31,10 +29,7 @@ function Routes() {
           <Stack.Screen name="Sobre" component={SobreScreen} />
         </>
       ) : (
-        <>
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Register" component={RegisterScreen} />
-        </>
+        <Stack.Screen name="Login" component={LoginScreen} />
       )}
     </Stack.Navigator>
   );
@@ -43,7 +38,7 @@ function Routes() {
 export default function App() {
   return (
     <AuthProvider>
-      <ThemeProvider> {}
+      <ThemeProvider>
         <NavigationContainer>
           <Routes />
         </NavigationContainer>

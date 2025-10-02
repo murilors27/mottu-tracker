@@ -11,18 +11,14 @@ export default function HomeScreen({ navigation }: any) {
   const colors = theme === 'dark' ? darkTheme : lightTheme;
 
   const handleLogout = async () => {
-    try {
-      await logout();
-    } catch (err) {
-      console.error("Erro ao deslogar:", err);
-    }
+    await logout();
   };
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Text style={[styles.title, { color: colors.text }]}>{'🏍️ Mottu Tracker'}</Text>
+      <Text style={[styles.title, { color: colors.text }]}>🏍️ Mottu Tracker</Text>
       <Text style={[styles.subtitle, { color: colors.text }]}>
-        {'Bem-vindo! Escolha uma opção abaixo:'}
+        Bem-vindo! Escolha uma opção abaixo:
       </Text>
 
       <AppButton title="📍 Ver Motos Localizadas" onPress={() => navigation.navigate('Motos')} />
