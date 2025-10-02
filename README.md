@@ -38,20 +38,20 @@ O app simula um sistema de pátio inteligente, onde cada moto possui um identifi
 
 ### 1. Clonar o repositório
 
-´´´
+```
 
 git clone https://github.com/murilors27/mottu-tracker.git
 cd mottu-tracker
 
-´´´
+```
 
 ### 2. Instalar as dependências
 
-´´´
+```
 
 npm install
 
-´´´
+```
 
 ### 3. Configurar a API
 
@@ -60,11 +60,11 @@ npm install
 
 ### 4. Iniciar o App
 
-´´´
+```
 
 npx expo start
 
-´´´
+```
 
 ---
 
