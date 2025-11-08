@@ -39,12 +39,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const login = async (username: string, password: string) => {
     try {
+      const basicToken = btoa(`${username}:${password}`);
+
       const response = await api.get("/motos", {
-        auth: { username, password },
+        headers: { Authorization: `Basic ${basicToken}` },
       });
 
       if (response.status === 200) {
-        const basicToken = btoa(`${username}:${password}`);
         await AsyncStorage.setItem("token", basicToken);
         await AsyncStorage.setItem("user", username);
 
@@ -54,7 +55,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         throw new Error("Credenciais inválidas");
       }
     } catch (error) {
-      console.error("Erro no login:", error);
       throw error;
     }
   };

@@ -15,14 +15,26 @@ function handleApiError(error: any, action: string): never {
     else if (typeof raw === "string") message = raw;
   } else if (error.message) message = error.message;
 
-  console.warn(`❌ Erro ao ${action}:`, message, "(Status:", status || "sem status", ")");
+  console.warn(
+    `❌ Erro ao ${action}:`,
+    message,
+    "(Status:",
+    status || "sem status",
+    ")"
+  );
   throw error;
 }
 
 export async function getSensores(): Promise<Sensor[]> {
   try {
     const response = await api.get("/sensores");
-    return response.data.content || response.data;
+    const data = response.data;
+
+    if (Array.isArray(data)) return data;
+    if (data?.content && Array.isArray(data.content)) return data.content;
+
+    console.warn("⚠️ Estrutura inesperada de sensores:", data);
+    return [];
   } catch (error) {
     handleApiError(error, "listar sensores");
   }
@@ -37,7 +49,10 @@ export async function createSensor(sensor: Sensor): Promise<Sensor> {
   }
 }
 
-export async function updateSensor(id: number, sensor: Sensor): Promise<Sensor> {
+export async function updateSensor(
+  id: number,
+  sensor: Sensor
+): Promise<Sensor> {
   try {
     const response = await api.put(`/sensores/${id}`, sensor);
     return response.data;
