@@ -8,10 +8,10 @@ import {
   Alert,
   ActivityIndicator,
 } from "react-native";
-import { useTheme } from "../context/ThemeContext";
-import { lightTheme, darkTheme } from "../styles/colors";
-import { updateMoto, deleteMoto, Moto } from "../services/motosService";
-import AppButton from "../components/AppButton";
+import { useTheme } from "../../context/ThemeContext";
+import { lightTheme, darkTheme } from "../../styles/colors";
+import { updateMoto, deleteMoto, Moto } from "../../services/motosService";
+import AppButton from "../../components/AppButton";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 export default function EditarMotoScreen() {

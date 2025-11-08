@@ -9,11 +9,11 @@ import {
   Alert,
   TouchableOpacity,
 } from "react-native";
-import { useTheme } from "../context/ThemeContext";
-import { lightTheme, darkTheme } from "../styles/colors";
-import { getMotos, deleteMoto, Moto } from "../services/motosService";
+import { useTheme } from "../../context/ThemeContext";
+import { lightTheme, darkTheme } from "../../styles/colors";
+import { getMotos, deleteMoto, Moto } from "../../services/motosService";
 import { useRoute, useNavigation } from "@react-navigation/native";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
 export default function MotosScreen() {
   const [motos, setMotos] = useState<Moto[]>([]);

@@ -8,10 +8,10 @@ import {
   Alert,
   ActivityIndicator,
 } from "react-native";
-import { useTheme } from "../context/ThemeContext";
-import { lightTheme, darkTheme } from "../styles/colors";
-import AppButton from "../components/AppButton";
-import { createMoto, Moto } from "../services/motosService";
+import { useTheme } from "../../context/ThemeContext";
+import { lightTheme, darkTheme } from "../../styles/colors";
+import AppButton from "../../components/AppButton";
+import { createMoto, Moto } from "../../services/motosService";
 
 export default function CadastroScreen() {
   const [modelo, setModelo] = useState("");

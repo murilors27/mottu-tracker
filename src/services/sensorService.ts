@@ -1,4 +1,4 @@
-import api from "../services/api";
+import api from "./api";
 
 export interface Sensor {
   id?: number;
@@ -11,14 +11,9 @@ function handleApiError(error: any, action: string): never {
   let message = "Erro inesperado.";
 
   if (raw) {
-    if (typeof raw === "object") {
-      message = raw.message || raw.error || message;
-    } else if (typeof raw === "string") {
-      message = raw;
-    }
-  } else if (error.message) {
-    message = error.message;
-  }
+    if (typeof raw === "object") message = raw.message || raw.error || message;
+    else if (typeof raw === "string") message = raw;
+  } else if (error.message) message = error.message;
 
   console.warn(`❌ Erro ao ${action}:`, message, "(Status:", status || "sem status", ")");
   throw error;
@@ -33,21 +28,12 @@ export async function getSensores(): Promise<Sensor[]> {
   }
 }
 
-export async function getSensorById(id: number): Promise<Sensor> {
-  try {
-    const response = await api.get(`/sensores/${id}`);
-    return response.data;
-  } catch (error) {
-    handleApiError(error, "buscar sensor");
-  }
-}
-
 export async function createSensor(sensor: Sensor): Promise<Sensor> {
   try {
     const response = await api.post("/sensores", sensor);
     return response.data;
   } catch (error) {
-    handleApiError(error, "cadastrar sensor");
+    handleApiError(error, "criar sensor");
   }
 }
 

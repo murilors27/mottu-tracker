@@ -6,17 +6,21 @@ import { ThemeProvider } from "./src/context/ThemeContext";
 
 import LoginScreen from "./src/screens/LoginScreen";
 import HomeScreen from "./src/screens/HomeScreen";
-import MotosScreen from "./src/screens/MotosSCreen";
-import CadastroScreen from "./src/screens/CadastroScreen";
 import PreferenciasScreen from "./src/screens/PreferenciasScreen";
 import SobreScreen from "./src/screens/SobreScreen";
-import EditarMotoScreen from "./src/screens/EditarMotoScreen";
+
+import MotosScreen from "./src/screens/motos/MotosSCreen";
+import CadastroMotoScreen from "./src/screens/motos/CadastroScreen";
+import EditarMotoScreen from "./src/screens/motos/EditarMotoScreen";
+
+import SensoresScreen from "./src/screens/sensores/SensoresScreen";
+import CadastroSensorScreen from "./src/screens/sensores/CadastroSensorScreen";
+import EditarSensorScreen from "./src/screens/sensores/EditarSensorScreen";
 
 const Stack = createNativeStackNavigator();
 
 function Routes() {
   const { token, initializing } = useAuth();
-
   if (initializing) return null;
 
   return (
@@ -24,9 +28,18 @@ function Routes() {
       {token ? (
         <>
           <Stack.Screen name="Home" component={HomeScreen} />
+
+          {/* Motos */}
           <Stack.Screen name="Motos" component={MotosScreen} />
-          <Stack.Screen name="Cadastro" component={CadastroScreen} />
+          <Stack.Screen name="CadastroMoto" component={CadastroMotoScreen} />
           <Stack.Screen name="EditarMoto" component={EditarMotoScreen} />
+
+          {/* Sensores */}
+          <Stack.Screen name="Sensores" component={SensoresScreen} />
+          <Stack.Screen name="CadastroSensor" component={CadastroSensorScreen} />
+          <Stack.Screen name="EditarSensor" component={EditarSensorScreen} />
+
+          {/* Outras telas */}
           <Stack.Screen name="Preferências" component={PreferenciasScreen} />
           <Stack.Screen name="Sobre" component={SobreScreen} />
         </>
