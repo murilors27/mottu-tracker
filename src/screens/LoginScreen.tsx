@@ -60,13 +60,32 @@ export default function LoginScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", padding: 20 },
-  title: { fontSize: 24, marginBottom: 20, textAlign: "center" },
+  container: { flex: 1, padding: 20 },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+    textAlign: "center",
+    color: "#00ff88",
+  },
   input: {
+    backgroundColor: "#1e1e1e",
     borderWidth: 1,
+    borderColor: "#00ff8844",
+    color: "#fff",
     borderRadius: 8,
-    marginBottom: 12,
-    padding: 10,
+    padding: 12,
+    marginBottom: 15,
     fontSize: 16,
   },
+  card: {
+    backgroundColor: "#1c1c1c",
+    padding: 20,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#00ff8844",
+    marginBottom: 12,
+  },
+  text: { color: "#e0e0e0" },
 });
+

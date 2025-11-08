@@ -10,6 +10,7 @@ import MotosScreen from "./src/screens/MotosSCreen";
 import CadastroScreen from "./src/screens/CadastroScreen";
 import PreferenciasScreen from "./src/screens/PreferenciasScreen";
 import SobreScreen from "./src/screens/SobreScreen";
+import EditarMotoScreen from "./src/screens/EditarMotoScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,7 @@ function Routes() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Motos" component={MotosScreen} />
           <Stack.Screen name="Cadastro" component={CadastroScreen} />
+          <Stack.Screen name="EditarMoto" component={EditarMotoScreen} />
           <Stack.Screen name="Preferências" component={PreferenciasScreen} />
           <Stack.Screen name="Sobre" component={SobreScreen} />
         </>

@@ -5,6 +5,7 @@ import api from "../services/api";
 type AuthContextType = {
   token: string | null;
   user: string | null;
+  isAdmin: boolean;
   initializing: boolean;
   login: (username: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
@@ -18,43 +19,58 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [initializing, setInitializing] = useState(true);
 
   useEffect(() => {
-    const loadToken = async () => {
+    const loadAuthData = async () => {
       try {
         const savedToken = await AsyncStorage.getItem("token");
-        if (savedToken) {
+        const savedUser = await AsyncStorage.getItem("user");
+
+        if (savedToken && savedUser) {
           setToken(savedToken);
-          const payload = JSON.parse(atob(savedToken.split(".")[1]));
-          setUser(payload.sub || null);
+          setUser(savedUser);
         }
       } catch (err) {
-        console.error("Erro ao carregar token:", err);
+        console.error("Erro ao carregar autenticação:", err);
       } finally {
         setInitializing(false);
       }
     };
-    loadToken();
+    loadAuthData();
   }, []);
 
   const login = async (username: string, password: string) => {
-    const response = await api.post("/api/auth/login", { username, password });
-    const newToken = response.data.token;
-    if (!newToken) throw new Error("Token não retornado pela API");
+    try {
+      const response = await api.get("/motos", {
+        auth: { username, password },
+      });
 
-    setToken(newToken);
-    await AsyncStorage.setItem("token", newToken);
+      if (response.status === 200) {
+        const basicToken = btoa(`${username}:${password}`);
+        await AsyncStorage.setItem("token", basicToken);
+        await AsyncStorage.setItem("user", username);
 
-    const payload = JSON.parse(atob(newToken.split(".")[1]));
-    setUser(payload.sub || username);
+        setToken(basicToken);
+        setUser(username);
+      } else {
+        throw new Error("Credenciais inválidas");
+      }
+    } catch (error) {
+      console.error("Erro no login:", error);
+      throw error;
+    }
   };
 
   const logout = async () => {
     setToken(null);
     setUser(null);
-    await AsyncStorage.removeItem("token");
+    await AsyncStorage.multiRemove(["token", "user"]);
   };
 
+  const isAdmin = user === "admin";
+
   return (
-    <AuthContext.Provider value={{ token, user, initializing, login, logout }}>
+    <AuthContext.Provider
+      value={{ token, user, isAdmin, initializing, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
