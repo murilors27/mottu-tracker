@@ -34,6 +34,32 @@ export default function EditarSensorScreen() {
     return true;
   };
 
+  const interpretarErro = (err: any): string => {
+    if (err.response) {
+      const data = err.response.data;
+      let msg = "";
+
+      if (typeof data === "object") {
+        msg =
+          data.message ||
+          data.error ||
+          (Array.isArray(data.errors) && data.errors[0]?.defaultMessage) ||
+          JSON.stringify(data);
+      } else if (typeof data === "string") {
+        msg = data;
+      }
+
+      if (/formato/i.test(msg))
+        return "Formato inválido. Use o padrão 'Setor X - Coluna Y' (ex: Setor A - Coluna 1).";
+      if (/existe/i.test(msg) && /sensor/i.test(msg))
+        return "Já existe outro sensor cadastrado nessa localização.";
+      if (/not found|não encontrado/i.test(msg))
+        return "Sensor não encontrado.";
+      return msg || "Ocorreu um erro inesperado.";
+    }
+    return "Erro ao conectar-se ao servidor.";
+  };
+
   const salvarAlteracoes = async () => {
     if (!validarFormulario()) return;
 
@@ -44,8 +70,8 @@ export default function EditarSensorScreen() {
       await updateSensor(sensor.id!, sensorAtualizado);
       Alert.alert("Sucesso", "Sensor atualizado com sucesso!");
       navigation.goBack();
-    } catch {
-      Alert.alert("Erro", "Não foi possível atualizar o sensor.");
+    } catch (err: any) {
+      Alert.alert("Erro", interpretarErro(err));
     } finally {
       setLoading(false);
     }
@@ -59,7 +85,10 @@ export default function EditarSensorScreen() {
         </Text>
 
         <TextInput
-          style={[styles.input, { backgroundColor: colors.input, color: colors.text }]}
+          style={[
+            styles.input,
+            { backgroundColor: colors.input, color: colors.text },
+          ]}
           placeholder="Localização"
           placeholderTextColor={placeholderColor}
           value={localizacao}
@@ -75,7 +104,11 @@ export default function EditarSensorScreen() {
         ) : (
           <>
             <AppButton title="Salvar Alterações" onPress={salvarAlteracoes} />
-            <AppButton title="Cancelar" variant="danger" onPress={() => navigation.goBack()} />
+            <AppButton
+              title="Cancelar"
+              variant="danger"
+              onPress={() => navigation.goBack()}
+            />
           </>
         )}
       </View>

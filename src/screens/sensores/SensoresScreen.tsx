@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import {
   View,
   Text,
@@ -12,8 +12,13 @@ import {
 import { useTheme } from "../../context/ThemeContext";
 import { useAuth } from "../../context/AuthContext";
 import { lightTheme, darkTheme } from "../../styles/colors";
-import { getSensores, deleteSensor, Sensor } from "../../services/sensorService";
+import {
+  getSensores,
+  deleteSensor,
+  Sensor,
+} from "../../services/sensorService";
 import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function SensoresScreen() {
   const [sensores, setSensores] = useState<Sensor[]>([]);
@@ -44,9 +49,11 @@ export default function SensoresScreen() {
     setRefreshing(false);
   };
 
-  useEffect(() => {
-    carregarSensores();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      carregarSensores();
+    }, [])
+  );
 
   const interpretarErro = (err: any): string => {
     if (err.response) {
