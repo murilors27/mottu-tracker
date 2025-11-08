@@ -11,7 +11,13 @@ export default function HomeScreen({ navigation }: any) {
   const { logout, user } = useAuth();
   const colors = theme === "dark" ? darkTheme : lightTheme;
 
-  const handleLogout = async () => await logout();
+  const handleLogout = async () => {
+    await logout();
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Login" }],
+    });
+  };
 
   return (
     <View
@@ -28,10 +34,22 @@ export default function HomeScreen({ navigation }: any) {
       </Text>
 
       <View style={{ width: "90%", marginTop: 20 }}>
-        <AppButton title="Motos" onPress={() => navigation.navigate("MotosHub")} />
-        <AppButton title="Sensores" onPress={() => navigation.navigate("SensoresHub")} />
-        <AppButton title="Preferências" onPress={() => navigation.navigate("Preferências")} />
-        <AppButton title="Sobre o App" onPress={() => navigation.navigate("Sobre")} />
+        <AppButton
+          title="Motos"
+          onPress={() => navigation.navigate("MotosHub")}
+        />
+        <AppButton
+          title="Sensores"
+          onPress={() => navigation.navigate("SensoresHub")}
+        />
+        <AppButton
+          title="Preferências"
+          onPress={() => navigation.navigate("Preferências")}
+        />
+        <AppButton
+          title="Sobre o App"
+          onPress={() => navigation.navigate("Sobre")}
+        />
         <AppButton title="Sair" onPress={handleLogout} variant="danger" />
       </View>
     </View>
