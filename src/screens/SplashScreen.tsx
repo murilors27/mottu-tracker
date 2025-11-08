@@ -9,7 +9,7 @@ export default function SplashScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Image source={require("../assets/icon.png")} style={styles.logo} />
+      <Image source={require("../../assets/mottu.png")} style={styles.logo} />
       <Text style={[styles.title, { color: colors.text }]}>
         🏍️ Mottu Tracker
       </Text>

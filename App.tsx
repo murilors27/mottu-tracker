@@ -13,9 +13,12 @@ import { ThemeProvider, useTheme } from "./src/context/ThemeContext";
 
 import LoginScreen from "./src/screens/LoginScreen";
 import HomeScreen from "./src/screens/HomeScreen";
+import SplashScreen from "./src/screens/SplashScreen";
 import PreferenciasScreen from "./src/screens/PreferenciasScreen";
 import SobreScreen from "./src/screens/SobreScreen";
-import SplashScreen from "./src/screens/SplashScreen";
+
+import MotosHubScreen from "./src/screens/motos/MotosHubScreen";
+import SensoresHubScreen from "./src/screens/sensores/SensoresHubScreen";
 
 import MotosScreen from "./src/screens/motos/MotosSCreen";
 import CadastroMotoScreen from "./src/screens/motos/CadastroScreen";
@@ -59,6 +62,9 @@ function Routes() {
           {token ? (
             <>
               <Stack.Screen name="Home" component={HomeScreen} />
+
+              <Stack.Screen name="MotosHub" component={MotosHubScreen} />
+              <Stack.Screen name="SensoresHub" component={SensoresHubScreen} />
 
               <Stack.Screen name="Motos" component={MotosScreen} />
               <Stack.Screen
