@@ -151,7 +151,12 @@ export default function MotosScreen() {
                 <Text style={{ color: colors.text }}>
                   Identificador: {item.identificadorUWB}
                 </Text>
-                <Text style={{ color: colors.text }}>Sensor ID: {item.sensorId}</Text>
+                <Text style={{ color: colors.text }}>
+                  Sensor:{" "}
+                  {item.sensorLocalizacao
+                    ? item.sensorLocalizacao
+                    : `ID ${item.sensorId ?? "N/A"}`}
+                </Text>
                 <Text style={{ color: colors.text }}>
                   Status: {getStatusIcon(status)} {status}
                 </Text>

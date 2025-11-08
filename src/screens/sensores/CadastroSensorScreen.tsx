@@ -21,15 +21,21 @@ export default function CadastroSensorScreen() {
   const colors = theme === "dark" ? darkTheme : lightTheme;
   const placeholderColor = "#888";
 
-  const validarFormulario = () => {
+  const validarFormulario = (): boolean => {
     if (!localizacao.trim()) {
       Alert.alert("Campo obrigatório", "Informe a localização do sensor.");
       return false;
     }
-    if (localizacao.trim().length < 3) {
-      Alert.alert("Localização inválida", "Digite pelo menos 3 caracteres.");
+
+    const regex = /^Setor [A-Z] - Coluna [1-9][0-9]*$/;
+    if (!regex.test(localizacao.trim())) {
+      Alert.alert(
+        "Formato inválido",
+        "A localização deve seguir o formato: Setor X - Coluna Y (ex: Setor A - Coluna 1)."
+      );
       return false;
     }
+
     return true;
   };
 
@@ -45,6 +51,8 @@ export default function CadastroSensorScreen() {
 
       if (/localiza(c|ç)ao/i.test(msg))
         return "Já existe um sensor cadastrado nessa localização.";
+      if (/formato/i.test(msg))
+        return "Formato inválido. Use o padrão 'Setor X - Coluna Y'.";
       if (/not found|não encontrado/i.test(msg))
         return "Recurso não encontrado.";
       return msg || "Ocorreu um erro inesperado.";
@@ -79,12 +87,17 @@ export default function CadastroSensorScreen() {
         <TextInput
           style={[
             styles.input,
-            { backgroundColor: colors.input, color: colors.text },
+            {
+              backgroundColor: colors.input,
+              color: colors.text,
+              borderColor: colors.primary,
+            },
           ]}
-          placeholder="Localização do Sensor"
+          placeholder="Ex: Setor A - Coluna 1"
           placeholderTextColor={placeholderColor}
           value={localizacao}
           onChangeText={setLocalizacao}
+          autoCapitalize="characters"
         />
 
         {loading ? (
@@ -118,10 +131,7 @@ const styles = StyleSheet.create({
     color: "#00ff88",
   },
   input: {
-    backgroundColor: "#1e1e1e",
     borderWidth: 1,
-    borderColor: "#00ff8844",
-    color: "#fff",
     borderRadius: 8,
     padding: 12,
     marginBottom: 15,

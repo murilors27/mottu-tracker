@@ -30,7 +30,8 @@ export default function SensoresScreen() {
       setLoading(true);
       const lista = await getSensores();
       setSensores(lista);
-    } catch {
+    } catch (err) {
+      console.warn("Erro ao carregar sensores:", err);
       setSensores([]);
     } finally {
       setLoading(false);
@@ -47,6 +48,30 @@ export default function SensoresScreen() {
     carregarSensores();
   }, []);
 
+  const interpretarErro = (err: any): string => {
+    if (err.response) {
+      const data = err.response.data;
+      const msg =
+        typeof data === "object"
+          ? data.message || data.error
+          : typeof data === "string"
+          ? data
+          : "";
+
+      if (msg && msg.includes("sensor") && msg.includes("vinculado")) {
+        return msg;
+      }
+
+      if (/aloca(c|ç)ao|loca(c|ç)ao/i.test(msg)) return msg;
+      if (/restricao|integridade/i.test(msg))
+        return "Operação não permitida. Verifique vínculos e restrições.";
+      if (/not found|não encontrado/i.test(msg))
+        return "Recurso não encontrado.";
+      return msg || "Ocorreu um erro inesperado.";
+    }
+    return "Erro ao conectar-se ao servidor.";
+  };
+
   const confirmarExclusao = (sensor: Sensor) => {
     Alert.alert(
       "Confirmar exclusão",
@@ -61,8 +86,9 @@ export default function SensoresScreen() {
               await deleteSensor(sensor.id!);
               Alert.alert("Sucesso", "Sensor excluído com sucesso!");
               carregarSensores();
-            } catch {
-              Alert.alert("Erro", "Não foi possível excluir o sensor.");
+            } catch (err: any) {
+              const msgErro = interpretarErro(err);
+              Alert.alert("Erro", msgErro);
             }
           },
         },
@@ -72,12 +98,16 @@ export default function SensoresScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Text style={[styles.title, { color: colors.text }]}>Sensores Cadastrados</Text>
+      <Text style={[styles.title, { color: colors.text }]}>
+        Sensores Cadastrados
+      </Text>
 
       {loading ? (
         <View style={styles.loaderContainer}>
           <ActivityIndicator size="large" color={colors.primary} />
-          <Text style={{ color: colors.text, marginTop: 10 }}>Carregando sensores...</Text>
+          <Text style={{ color: colors.text, marginTop: 10 }}>
+            Carregando sensores...
+          </Text>
         </View>
       ) : (
         <FlatList
@@ -106,7 +136,9 @@ export default function SensoresScreen() {
                 <View style={styles.actions}>
                   <TouchableOpacity
                     style={[styles.btn, { backgroundColor: colors.primary }]}
-                    onPress={() => navigation.navigate("EditarSensor", { sensor: item })}
+                    onPress={() =>
+                      navigation.navigate("EditarSensor", { sensor: item })
+                    }
                   >
                     <Text style={{ color: "#fff" }}>✏️</Text>
                   </TouchableOpacity>
@@ -130,7 +162,13 @@ export default function SensoresScreen() {
             />
           }
           ListEmptyComponent={
-            <Text style={{ color: colors.text, textAlign: "center", marginTop: 20 }}>
+            <Text
+              style={{
+                color: colors.text,
+                textAlign: "center",
+                marginTop: 20,
+              }}
+            >
               Nenhum sensor cadastrado ainda ⚙️
             </Text>
           }

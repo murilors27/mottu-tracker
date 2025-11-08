@@ -6,6 +6,7 @@ export interface Moto {
   cor: string;
   identificadorUWB: string;
   sensorId: number;
+  sensorLocalizacao?: string;
   status?: string;
 }
 

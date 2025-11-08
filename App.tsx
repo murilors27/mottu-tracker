@@ -9,10 +9,12 @@ import HomeScreen from "./src/screens/HomeScreen";
 import PreferenciasScreen from "./src/screens/PreferenciasScreen";
 import SobreScreen from "./src/screens/SobreScreen";
 
+import MotosHubScreen from "./src/screens/motos/MotosHubScreen";
 import MotosScreen from "./src/screens/motos/MotosSCreen";
 import CadastroMotoScreen from "./src/screens/motos/CadastroScreen";
 import EditarMotoScreen from "./src/screens/motos/EditarMotoScreen";
 
+import SensoresHubScreen from "./src/screens/sensores/SensoresHubScreen";
 import SensoresScreen from "./src/screens/sensores/SensoresScreen";
 import CadastroSensorScreen from "./src/screens/sensores/CadastroSensorScreen";
 import EditarSensorScreen from "./src/screens/sensores/EditarSensorScreen";
@@ -29,17 +31,20 @@ function Routes() {
         <>
           <Stack.Screen name="Home" component={HomeScreen} />
 
-          {/* Motos */}
+          <Stack.Screen name="MotosHub" component={MotosHubScreen} />
+          <Stack.Screen name="SensoresHub" component={SensoresHubScreen} />
+
           <Stack.Screen name="Motos" component={MotosScreen} />
           <Stack.Screen name="CadastroMoto" component={CadastroMotoScreen} />
           <Stack.Screen name="EditarMoto" component={EditarMotoScreen} />
 
-          {/* Sensores */}
           <Stack.Screen name="Sensores" component={SensoresScreen} />
-          <Stack.Screen name="CadastroSensor" component={CadastroSensorScreen} />
+          <Stack.Screen
+            name="CadastroSensor"
+            component={CadastroSensorScreen}
+          />
           <Stack.Screen name="EditarSensor" component={EditarSensorScreen} />
 
-          {/* Outras telas */}
           <Stack.Screen name="Preferências" component={PreferenciasScreen} />
           <Stack.Screen name="Sobre" component={SobreScreen} />
         </>

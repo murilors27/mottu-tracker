@@ -9,7 +9,7 @@ export default function PreferenciasScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Text style={[styles.title, { color: colors.text }]}>⚙️ Preferências</Text>
+      <Text style={[styles.title, { color: colors.text }]}>Preferências</Text>
 
       <View style={styles.item}>
         <Text style={[styles.label, { color: colors.text }]}>Modo Escuro:</Text>

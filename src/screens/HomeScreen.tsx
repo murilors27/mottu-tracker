@@ -8,7 +8,7 @@ import AppButton from "../components/AppButton";
 
 export default function HomeScreen({ navigation }: any) {
   const { theme } = useTheme();
-  const { logout, isAdmin, user } = useAuth();
+  const { logout, user } = useAuth();
   const colors = theme === "dark" ? darkTheme : lightTheme;
 
   const handleLogout = async () => await logout();
@@ -24,38 +24,14 @@ export default function HomeScreen({ navigation }: any) {
         🏍️ Mottu Tracker
       </Text>
       <Text style={[globalStyles.subtitle, { color: colors.text }]}>
-        Bem-vindo, {user}! Escolha uma opção abaixo:
+        Bem-vindo, {user}! Escolha uma opção:
       </Text>
 
-      <View style={{ width: "90%" }}>
-        <AppButton
-          title="Ver Motos Localizadas"
-          onPress={() => navigation.navigate("Motos")}
-        />
-        {isAdmin && (
-          <>
-            <AppButton
-              title="Cadastrar Nova Moto"
-              onPress={() => navigation.navigate("CadastroMoto")}
-            />
-            <AppButton
-              title="Ver Sensores"
-              onPress={() => navigation.navigate("Sensores")}
-            />
-            <AppButton
-              title="Cadastrar Sensor"
-              onPress={() => navigation.navigate("CadastroSensor")}
-            />
-          </>
-        )}
-        <AppButton
-          title="Preferências"
-          onPress={() => navigation.navigate("Preferências")}
-        />
-        <AppButton
-          title="Sobre o App"
-          onPress={() => navigation.navigate("Sobre")}
-        />
+      <View style={{ width: "90%", marginTop: 20 }}>
+        <AppButton title="Motos" onPress={() => navigation.navigate("MotosHub")} />
+        <AppButton title="Sensores" onPress={() => navigation.navigate("SensoresHub")} />
+        <AppButton title="Preferências" onPress={() => navigation.navigate("Preferências")} />
+        <AppButton title="Sobre o App" onPress={() => navigation.navigate("Sobre")} />
         <AppButton title="Sair" onPress={handleLogout} variant="danger" />
       </View>
     </View>
