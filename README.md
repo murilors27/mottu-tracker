@@ -128,7 +128,7 @@ Recursos implementados na versão final da aplicação para atender aos requisit
 
 ## 🔗 Vídeo de Demonstração
 
-📹 [Assista no YouTube](https://youtu.be/SEU_LINK_AQUI)
+📹 [Assista no YouTube](https://youtu.be/Tej01rxRYGw)
 
 ---
 
