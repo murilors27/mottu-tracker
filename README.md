@@ -4,7 +4,6 @@ Aplicativo mobile desenvolvido com **React Native** e **TypeScript**, integrado 
 
 O app simula um sistema de pátio inteligente, onde cada moto possui um identificador UWB único e está vinculada a um sensor, permitindo gerenciar a frota de forma organizada, prática e responsiva.
 
-
 ---
 
 ## 📱 Funcionalidades implementadas
@@ -29,7 +28,7 @@ O app simula um sistema de pátio inteligente, onde cada moto possui um identifi
 - [React Navigation](https://reactnavigation.org/)
 - [AsyncStorage](https://github.com/react-native-async-storage/async-storage)
 - [Axios](https://axios-http.com/)
-- Back-end: [Java](https://www.java.com/) + [SpringBoot](https://spring.io/projects/spring-boot)  
+- Back-end: [Java](https://www.java.com/) + [SpringBoot](https://spring.io/projects/spring-boot)
 - Banco de dados: [PostgreSQL](https://www.postgresql.org/)
 
 ---
@@ -92,13 +91,53 @@ mottu-tracker/
 
 ---
 
+## 🚨 Notificação Push e Internacionalização
+
+Recursos implementados na versão final da aplicação para atender aos requisitos de comunicação e experiência multilíngue.
+
+- **Notificação Local:** quando uma nova moto é cadastrada, o app exibe uma notificação nativa simulando alerta de registro.
+- **Internacionalização (PT/ES):** todos os textos agora se adaptam dinamicamente ao idioma escolhido, com persistência via AsyncStorage.
+
+---
+
+## 🖼️ Capturas de Tela
+
+| Tema Claro                                            | Tema Escuro                                         |
+| ----------------------------------------------------- | --------------------------------------------------- |
+| ![Home Light](./docs/screens/home-light.jpg)          | ![Home Dark](./docs/screens/home-dark.jpg)          |
+| ![Login Light](./docs/screens/login-light.jpg)        | ![Login Dark](./docs/screens/login-dark.jpg)        |
+| ![Preferências Light](./docs/screens/prefs-light.jpg) | ![Preferências Dark](./docs/screens/prefs-dark.jpg) |
+
+---
+
+## 🔗 Vídeo de Demonstração
+
+📹 [Assista no YouTube](https://youtu.be/SEU_LINK_AQUI)
+
+---
+
+## 🧱 Build & Deploy
+
+Versão publicada: **1.0.0**  
+Commit hash: `abc1234`  
+Distribuição: **Firebase App Distribution**  
+Comando usado:
+
+```
+
+eas build -p android --profile preview
+
+```
+
+---
+
 ## 👥 Integrantes
 
-| Nome                                | RM       | GitHub                                |
-|-------------------------------------|----------|----------------------------------------|
-| Murilo Ribeiro Santos               | RM555109 | [@murilors27](https://github.com/murilors27) |
-| Thiago Garcia Tonato                | RM99404  | [@thiago-tonato](https://github.com/thiago-tonato) |
-| Ian Madeira Gonçalves da Silva      | RM555502 | [@IanMadeira](https://github.com/IanMadeira) |
+| Nome                           | RM       | GitHub                                             |
+| ------------------------------ | -------- | -------------------------------------------------- |
+| Murilo Ribeiro Santos          | RM555109 | [@murilors27](https://github.com/murilors27)       |
+| Thiago Garcia Tonato           | RM99404  | [@thiago-tonato](https://github.com/thiago-tonato) |
+| Ian Madeira Gonçalves da Silva | RM555502 | [@IanMadeira](https://github.com/IanMadeira)       |
 
 **Curso**: Análise e Desenvolvimento de Sistemas  
 **Instituição**: FIAP – Faculdade de Informática e Administração Paulista
