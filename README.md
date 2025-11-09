@@ -102,31 +102,27 @@ Recursos implementados na versão final da aplicação para atender aos requisit
 
 ## 🖼️ Capturas de Tela
 
+<div align="center">
+
 ### 🏠 Home
-**Tema Claro**  
-<img src="docs/screens/home-light.jpg" width="300" />
 
-**Tema Escuro**  
-<img src="docs/screens/home-dark.jpg" width="300" />
-
----
+| Tema Claro | Tema Escuro |
+|:-----------:|:------------:|
+| <img src="docs/screens/home-light.jpg" width="280" /> | <img src="docs/screens/home-dark.jpg" width="280" /> |
 
 ### 🔐 Login
-**Tema Claro**  
-<img src="docs/screens/login-light.jpg" width="300" />
 
-**Tema Escuro**  
-<img src="docs/screens/login-dark.jpg" width="300" />
-
----
+| Tema Claro | Tema Escuro |
+|:-----------:|:------------:|
+| <img src="docs/screens/login-light.jpg" width="280" /> | <img src="docs/screens/login-dark.jpg" width="280" /> |
 
 ### ⚙️ Preferências
-**Tema Claro**  
-<img src="docs/screens/prefs-light.jpg" width="300" />
 
-**Tema Escuro**  
-<img src="docs/screens/prefs-dark.jpg" width="300" />
+| Tema Claro | Tema Escuro |
+|:-----------:|:------------:|
+| <img src="docs/screens/prefs-light.jpg" width="280" /> | <img src="docs/screens/prefs-dark.jpg" width="280" /> |
 
+</div>
 ---
 
 ## 🔗 Vídeo de Demonstração
