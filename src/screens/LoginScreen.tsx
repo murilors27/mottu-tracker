@@ -36,53 +36,61 @@ export default function LoginScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Text style={[styles.title, { color: colors.text }]}>{t.login}</Text>
+      <View style={styles.content}>
+        <Text style={[styles.title, { color: colors.text }]}>{t.login}</Text>
 
-      <TextInput
-        style={[
-          styles.input,
-          { backgroundColor: colors.input, color: colors.text },
-        ]}
-        placeholder={t.usernamePlaceholder}
-        placeholderTextColor="#888"
-        value={username}
-        onChangeText={setUsername}
-      />
-      <TextInput
-        style={[
-          styles.input,
-          { backgroundColor: colors.input, color: colors.text },
-        ]}
-        placeholder={t.passwordPlaceholder}
-        placeholderTextColor="#888"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
+        <TextInput
+          style={[
+            styles.input,
+            { backgroundColor: colors.input, color: colors.text },
+          ]}
+          placeholder={t.usernamePlaceholder}
+          placeholderTextColor="#888"
+          value={username}
+          onChangeText={setUsername}
+        />
+        <TextInput
+          style={[
+            styles.input,
+            { backgroundColor: colors.input, color: colors.text },
+          ]}
+          placeholder={t.passwordPlaceholder}
+          placeholderTextColor="#888"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
 
-      <AppButton
-        title={loading ? t.loggingIn : t.login}
-        onPress={handleLogin}
-        loading={loading}
-      />
+        <AppButton
+          title={loading ? t.loggingIn : t.login}
+          onPress={handleLogin}
+          loading={loading}
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20 },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+  },
+  content: {
+    width: "100%",
+    maxWidth: 350,
+  },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: "bold",
-    marginBottom: 20,
+    marginBottom: 25,
     textAlign: "center",
-    color: "#00ff88",
   },
   input: {
-    backgroundColor: "#1e1e1e",
     borderWidth: 1,
     borderColor: "#00ff8844",
-    color: "#fff",
     borderRadius: 8,
     padding: 12,
     marginBottom: 15,

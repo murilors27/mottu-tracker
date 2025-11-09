@@ -65,6 +65,9 @@ export default function SobreScreen() {
       ))}
 
       <Text style={[styles.footer, { color: colors.text }]}>{t.footer}</Text>
+      <Text style={{ color: colors.text, marginTop: 10, fontSize: 14 }}>
+        Versão: 1.0.0 | Commit: de278e1
+      </Text>
     </ScrollView>
   );
 }

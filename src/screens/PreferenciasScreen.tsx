@@ -14,61 +14,70 @@ export default function PreferenciasScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Text style={[styles.title, { color: colors.text }]}>{t.preferences}</Text>
+      <View style={styles.content}>
+        <Text style={[styles.title, { color: colors.text }]}>{t.preferences}</Text>
 
-      {/* ===== MODO ESCURO ===== */}
-      <View style={styles.item}>
-        <Text style={[styles.label, { color: colors.text }]}>
-          {language === "pt" ? "Modo Escuro:" : "Modo Oscuro:"}
-        </Text>
-        <Switch
-          value={theme === "dark"}
-          onValueChange={toggleTheme}
-          thumbColor={theme === "dark" ? "#fff" : "#f4f3f4"}
-          trackColor={{ true: colors.primary, false: "#ccc" }}
-        />
-      </View>
+        <View style={styles.item}>
+          <Text style={[styles.label, { color: colors.text }]}>
+            {language === "pt" ? "Modo Escuro:" : "Modo Oscuro:"}
+          </Text>
+          <Switch
+            value={theme === "dark"}
+            onValueChange={toggleTheme}
+            thumbColor={theme === "dark" ? "#fff" : "#f4f3f4"}
+            trackColor={{ true: colors.primary, false: "#ccc" }}
+          />
+        </View>
 
-      <Text style={[styles.status, { color: colors.text }]}>
-        {language === "pt"
-          ? `Modo Escuro está ${theme === "dark" ? "Ativado" : "Desativado"}`
-          : `El Modo Oscuro está ${
-              theme === "dark" ? "Activado" : "Desactivado"
-            }`}
-      </Text>
-
-      {/* ===== IDIOMA ===== */}
-      <View style={{ marginTop: 40 }}>
-        <Text
-          style={[
-            styles.label,
-            { color: colors.text, textAlign: "center", marginBottom: 10 },
-          ]}
-        >
-          {t.language}
+        <Text style={[styles.status, { color: colors.text }]}>
+          {language === "pt"
+            ? `Modo Escuro está ${theme === "dark" ? "Ativado" : "Desativado"}`
+            : `El Modo Oscuro está ${
+                theme === "dark" ? "Activado" : "Desactivado"
+              }`}
         </Text>
 
-        <AppButton
-          title={t.portuguese}
-          onPress={() => setLanguage("pt")}
-          variant={language === "pt" ? "primary" : "secondary"}
-        />
-        <AppButton
-          title={t.spanish}
-          onPress={() => setLanguage("es")}
-          variant={language === "es" ? "primary" : "secondary"}
-        />
+        <View style={{ marginTop: 40 }}>
+          <Text
+            style={[
+              styles.label,
+              { color: colors.text, textAlign: "center", marginBottom: 10 },
+            ]}
+          >
+            {t.language}
+          </Text>
+
+          <AppButton
+            title={t.portuguese}
+            onPress={() => setLanguage("pt")}
+            variant={language === "pt" ? "primary" : "secondary"}
+          />
+          <AppButton
+            title={t.spanish}
+            onPress={() => setLanguage("es")}
+            variant={language === "es" ? "primary" : "secondary"}
+          />
+        </View>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20 },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+  },
+  content: {
+    width: "100%",
+    maxWidth: 350,
+  },
   title: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 25,
+    marginBottom: 30,
     textAlign: "center",
   },
   item: {
@@ -77,6 +86,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 25,
   },
-  label: { fontSize: 18 },
-  status: { fontSize: 16, textAlign: "center", marginTop: 20 },
+  label: {
+    fontSize: 18,
+  },
+  status: {
+    fontSize: 16,
+    textAlign: "center",
+    marginTop: 20,
+  },
 });
