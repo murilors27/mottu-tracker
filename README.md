@@ -135,7 +135,7 @@ Recursos implementados na versão final da aplicação para atender aos requisit
 ## 🧱 Build & Deploy
 
 Versão publicada: **1.0.0**  
-Commit hash: `abc1234`  
+Commit hash: `a656a3e`  
 Distribuição: **Firebase App Distribution**  
 Comando usado:
 
