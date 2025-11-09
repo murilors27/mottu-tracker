@@ -11,6 +11,7 @@ import { StatusBar } from "react-native";
 
 import { AuthProvider, useAuth } from "./src/context/AuthContext";
 import { ThemeProvider, useTheme } from "./src/context/ThemeContext";
+import { LanguageProvider } from "./src/context/LanguageContext";
 
 import LoginScreen from "./src/screens/LoginScreen";
 import HomeScreen from "./src/screens/HomeScreen";
@@ -113,7 +114,9 @@ export default function App() {
   return (
     <AuthProvider>
       <ThemeProvider>
-        <Routes />
+        <LanguageProvider>
+          <Routes />
+        </LanguageProvider>
       </ThemeProvider>
     </AuthProvider>
   );

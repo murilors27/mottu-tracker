@@ -1,37 +1,82 @@
-import React from 'react';
-import { View, Text, Switch, StyleSheet } from 'react-native';
-import { useTheme } from '../context/ThemeContext';
-import { lightTheme, darkTheme } from '../styles/colors';
+import React from "react";
+import { View, Text, Switch, StyleSheet } from "react-native";
+import { useTheme } from "../context/ThemeContext";
+import { useLanguage } from "../context/LanguageContext";
+import { strings } from "../locales/strings";
+import { lightTheme, darkTheme } from "../styles/colors";
+import AppButton from "../components/AppButton";
 
 export default function PreferenciasScreen() {
   const { theme, toggleTheme } = useTheme();
-  const colors = theme === 'dark' ? darkTheme : lightTheme;
+  const { language, setLanguage } = useLanguage();
+  const colors = theme === "dark" ? darkTheme : lightTheme;
+  const t = strings[language];
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Text style={[styles.title, { color: colors.text }]}>Preferências</Text>
+      <Text style={[styles.title, { color: colors.text }]}>{t.preferences}</Text>
 
+      {/* ===== MODO ESCURO ===== */}
       <View style={styles.item}>
-        <Text style={[styles.label, { color: colors.text }]}>Modo Escuro:</Text>
+        <Text style={[styles.label, { color: colors.text }]}>
+          {language === "pt" ? "Modo Escuro:" : "Modo Oscuro:"}
+        </Text>
         <Switch
-          value={theme === 'dark'}
+          value={theme === "dark"}
           onValueChange={toggleTheme}
-          thumbColor={theme === 'dark' ? '#fff' : '#f4f3f4'}
-          trackColor={{ true: colors.primary, false: '#ccc' }}
+          thumbColor={theme === "dark" ? "#fff" : "#f4f3f4"}
+          trackColor={{ true: colors.primary, false: "#ccc" }}
         />
       </View>
 
       <Text style={[styles.status, { color: colors.text }]}>
-        {`Modo Escuro está ${theme === 'dark' ? 'Ativado' : 'Desativado'}`}
+        {language === "pt"
+          ? `Modo Escuro está ${theme === "dark" ? "Ativado" : "Desativado"}`
+          : `El Modo Oscuro está ${
+              theme === "dark" ? "Activado" : "Desactivado"
+            }`}
       </Text>
+
+      {/* ===== IDIOMA ===== */}
+      <View style={{ marginTop: 40 }}>
+        <Text
+          style={[
+            styles.label,
+            { color: colors.text, textAlign: "center", marginBottom: 10 },
+          ]}
+        >
+          {t.language}
+        </Text>
+
+        <AppButton
+          title={t.portuguese}
+          onPress={() => setLanguage("pt")}
+          variant={language === "pt" ? "primary" : "secondary"}
+        />
+        <AppButton
+          title={t.spanish}
+          onPress={() => setLanguage("es")}
+          variant={language === "es" ? "primary" : "secondary"}
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 20 },
-  title: { fontSize: 22, fontWeight: 'bold', marginBottom: 25, textAlign: 'center' },
-  item: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 25 },
+  title: {
+    fontSize: 22,
+    fontWeight: "bold",
+    marginBottom: 25,
+    textAlign: "center",
+  },
+  item: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 25,
+  },
   label: { fontSize: 18 },
-  status: { fontSize: 16, textAlign: 'center', marginTop: 20 },
+  status: { fontSize: 16, textAlign: "center", marginTop: 20 },
 });

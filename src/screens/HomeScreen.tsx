@@ -2,6 +2,8 @@ import React from "react";
 import { View, Text } from "react-native";
 import { useTheme } from "../context/ThemeContext";
 import { useAuth } from "../context/AuthContext";
+import { useLanguage } from "../context/LanguageContext";
+import { strings } from "../locales/strings";
 import { lightTheme, darkTheme } from "../styles/colors";
 import { globalStyles } from "../styles/globalStyles";
 import AppButton from "../components/AppButton";
@@ -9,6 +11,8 @@ import AppButton from "../components/AppButton";
 export default function HomeScreen({ navigation }: any) {
   const { theme } = useTheme();
   const { logout, user } = useAuth();
+  const { language } = useLanguage();
+  const t = strings[language];
   const colors = theme === "dark" ? darkTheme : lightTheme;
 
   const handleLogout = async () => {
@@ -29,28 +33,26 @@ export default function HomeScreen({ navigation }: any) {
       <Text style={[globalStyles.title, { color: colors.text }]}>
         🏍️ Mottu Tracker
       </Text>
+
       <Text style={[globalStyles.subtitle, { color: colors.text }]}>
-        Bem-vindo, {user}! Escolha uma opção:
+        {t.welcome}, {user}! {t.chooseOption}
       </Text>
 
       <View style={{ width: "90%", marginTop: 20 }}>
         <AppButton
-          title="Motos"
+          title={t.motos}
           onPress={() => navigation.navigate("MotosHub")}
         />
         <AppButton
-          title="Sensores"
+          title={t.sensores}
           onPress={() => navigation.navigate("SensoresHub")}
         />
         <AppButton
-          title="Preferências"
+          title={t.preferences}
           onPress={() => navigation.navigate("Preferências")}
         />
-        <AppButton
-          title="Sobre o App"
-          onPress={() => navigation.navigate("Sobre")}
-        />
-        <AppButton title="Sair" onPress={handleLogout} variant="danger" />
+        <AppButton title={t.about} onPress={() => navigation.navigate("Sobre")} />
+        <AppButton title={t.exit} onPress={handleLogout} variant="danger" />
       </View>
     </View>
   );

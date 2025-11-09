@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { View, Text, TextInput, Alert, StyleSheet } from "react-native";
 import AppButton from "../components/AppButton";
 import { useTheme } from "../context/ThemeContext";
+import { useLanguage } from "../context/LanguageContext";
+import { strings } from "../locales/strings";
 import { lightTheme, darkTheme } from "../styles/colors";
 import { useAuth } from "../context/AuthContext";
 
@@ -9,6 +11,8 @@ export default function LoginScreen() {
   const { theme } = useTheme();
   const colors = theme === "dark" ? darkTheme : lightTheme;
   const { login } = useAuth();
+  const { language } = useLanguage();
+  const t = strings[language];
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -16,15 +20,15 @@ export default function LoginScreen() {
 
   async function handleLogin() {
     if (!username || !password) {
-      return Alert.alert("Erro", "Preencha todos os campos!");
+      return Alert.alert(t.error, t.fillAllFields);
     }
 
     try {
       setLoading(true);
       await login(username, password);
-      Alert.alert("Sucesso", "Login realizado com sucesso!");
+      Alert.alert(t.success, t.loginSuccess);
     } catch {
-      Alert.alert("Erro", "Credenciais inválidas!");
+      Alert.alert(t.error, t.invalidCredentials);
     } finally {
       setLoading(false);
     }
@@ -32,18 +36,24 @@ export default function LoginScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Text style={[styles.title, { color: colors.text }]}>Login</Text>
+      <Text style={[styles.title, { color: colors.text }]}>{t.login}</Text>
 
       <TextInput
-        style={[styles.input, { backgroundColor: colors.input, color: colors.text }]}
-        placeholder="Usuário (ex: admin)"
+        style={[
+          styles.input,
+          { backgroundColor: colors.input, color: colors.text },
+        ]}
+        placeholder={t.usernamePlaceholder}
         placeholderTextColor="#888"
         value={username}
         onChangeText={setUsername}
       />
       <TextInput
-        style={[styles.input, { backgroundColor: colors.input, color: colors.text }]}
-        placeholder="Senha"
+        style={[
+          styles.input,
+          { backgroundColor: colors.input, color: colors.text },
+        ]}
+        placeholder={t.passwordPlaceholder}
         placeholderTextColor="#888"
         secureTextEntry
         value={password}
@@ -51,7 +61,7 @@ export default function LoginScreen() {
       />
 
       <AppButton
-        title={loading ? "Entrando..." : "Entrar"}
+        title={loading ? t.loggingIn : t.login}
         onPress={handleLogin}
         loading={loading}
       />
@@ -78,14 +88,4 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     fontSize: 16,
   },
-  card: {
-    backgroundColor: "#1c1c1c",
-    padding: 20,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#00ff8844",
-    marginBottom: 12,
-  },
-  text: { color: "#e0e0e0" },
 });
-

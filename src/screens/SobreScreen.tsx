@@ -1,59 +1,42 @@
 import React from "react";
-import { View, Text, ScrollView, Image, Linking, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  Linking,
+  StyleSheet,
+} from "react-native";
 import { useTheme } from "../context/ThemeContext";
+import { useLanguage } from "../context/LanguageContext";
+import { strings } from "../locales/strings";
 import { lightTheme, darkTheme } from "../styles/colors";
 
 export default function SobreScreen() {
   const { theme } = useTheme();
+  const { language } = useLanguage();
+  const t = strings[language];
   const colors = theme === "dark" ? darkTheme : lightTheme;
   const isDark = theme === "dark";
 
   return (
     <ScrollView
-      contentContainerStyle={[styles.container, { backgroundColor: colors.background }]}
+      contentContainerStyle={[
+        styles.container,
+        { backgroundColor: colors.background },
+      ]}
     >
-      <Text style={[styles.title, { color: colors.text }]}>Sobre o App</Text>
+      <Text style={[styles.title, { color: colors.text }]}>{t.about}</Text>
 
-      <Text style={[styles.paragraph, { color: colors.text }]}>
-        O Mottu Tracker é um aplicativo mobile criado para facilitar a visualização e o cadastro
-        de motos da empresa Mottu, utilizando sensores UWB para localização precisa mesmo em pátios
-        com alta densidade.
+      <Text style={[styles.paragraph, { color: colors.text }]}>{t.about1}</Text>
+      <Text style={[styles.paragraph, { color: colors.text }]}>{t.about2}</Text>
+      <Text style={[styles.paragraph, { color: colors.text }]}>{t.about3}</Text>
+
+      <Text style={[styles.sectionTitle, { color: colors.text }]}>
+        {t.team}
       </Text>
 
-      <Text style={[styles.paragraph, { color: colors.text }]}>
-        O app conta com funcionalidades como cadastro de motos, visualização de motos localizadas,
-        preferências do usuário e armazenamento local utilizando tecnologias como React Native,
-        TypeScript, React Navigation e AsyncStorage.
-      </Text>
-
-      <Text style={[styles.paragraph, { color: colors.text }]}>
-        O objetivo foi aplicar os conhecimentos adquiridos em aula no desenvolvimento de um app
-        funcional, com navegação entre telas, formulário com manipulação de estado e dados
-        persistentes.
-      </Text>
-
-      <Text style={[styles.sectionTitle, { color: colors.text }]}>👥 Equipe Desenvolvedora</Text>
-
-      {[
-        {
-          nome: "Murilo Ribeiro Santos",
-          rm: "RM555109",
-          img: require("../../assets/murilo.jpg"),
-          github: "https://github.com/murilors27",
-        },
-        {
-          nome: "Thiago Garcia Tonato",
-          rm: "RM99404",
-          img: require("../../assets/thiago.jpg"),
-          github: "https://github.com/thiago-tonato",
-        },
-        {
-          nome: "Ian Madeira Gonçalves da Silva",
-          rm: "RM555502",
-          img: require("../../assets/ian.png"),
-          github: "https://github.com/IanMadeira",
-        },
-      ].map((membro, i) => (
+      {t.members.map((membro, i) => (
         <View
           key={i}
           style={[
@@ -68,7 +51,9 @@ export default function SobreScreen() {
           ]}
         >
           <Image source={membro.img} style={styles.avatar} />
-          <Text style={[styles.name, { color: colors.text }]}>{membro.nome}</Text>
+          <Text style={[styles.name, { color: colors.text }]}>
+            {membro.nome}
+          </Text>
           <Text style={[styles.rm, { color: colors.text }]}>{membro.rm}</Text>
           <Text
             style={[styles.link, { color: colors.primary }]}
@@ -79,14 +64,13 @@ export default function SobreScreen() {
         </View>
       ))}
 
-      <Text style={[styles.footer, { color: colors.text }]}>FIAP | ADS | 2025</Text>
+      <Text style={[styles.footer, { color: colors.text }]}>{t.footer}</Text>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: { padding: 20, alignItems: "center" },
-
   title: {
     fontSize: 26,
     fontWeight: "bold",
@@ -94,7 +78,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: "center",
   },
-
   paragraph: {
     fontSize: 15,
     textAlign: "justify",
@@ -102,7 +85,6 @@ const styles = StyleSheet.create({
     color: "#e0e0e0",
     lineHeight: 22,
   },
-
   sectionTitle: {
     fontSize: 20,
     fontWeight: "bold",
@@ -110,7 +92,6 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     textAlign: "center",
   },
-
   member: {
     alignItems: "center",
     marginBottom: 20,
@@ -120,7 +101,6 @@ const styles = StyleSheet.create({
     padding: 15,
     width: "100%",
   },
-
   avatar: {
     width: 100,
     height: 100,
@@ -129,23 +109,9 @@ const styles = StyleSheet.create({
     borderColor: "#00ff88",
     marginBottom: 10,
   },
-
-  name: {
-    fontWeight: "bold",
-    fontSize: 16,
-  },
-
-  rm: {
-    fontSize: 14,
-    color: "#bbb",
-    marginBottom: 4,
-  },
-
-  link: {
-    fontSize: 14,
-    textDecorationLine: "underline",
-  },
-
+  name: { fontWeight: "bold", fontSize: 16 },
+  rm: { fontSize: 14, color: "#bbb", marginBottom: 4 },
+  link: { fontSize: 14, textDecorationLine: "underline" },
   footer: {
     fontSize: 14,
     color: "#777",
