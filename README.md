@@ -132,10 +132,11 @@ Recursos implementados na versão final da aplicação para atender aos requisit
 
 ---
 
-## 🧱 Build & Deploy
+## 🚀 Build e Publicação
 
 Versão publicada: **1.0.0**  
-Commit hash: `a656a3e`  
+Commit hash: `a656a3e`
+Link: **[Baixar APK (EAS Build)](https://expo.dev/artifacts/eas/wA52cogVThtifamfFQPt4Q.apk)**
 Distribuição: **Firebase App Distribution**  
 Comando usado:
 
@@ -144,6 +145,16 @@ Comando usado:
 eas build -p android --profile preview
 
 ```
+
+---
+
+## 🧩 Recursos Técnicos Complementares
+
+- Persistência de tema e idioma via AsyncStorage  
+- Context API para autenticação, idioma e tema  
+- Navegação protegida por token  
+- Estrutura modular com separação de camadas (context, services, screens, components)  
+- Código 100% tipado em TypeScript
 
 ---
 
