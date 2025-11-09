@@ -104,28 +104,28 @@ Recursos implementados na versão final da aplicação para atender aos requisit
 
 ### 🏠 Home
 **Tema Claro**  
-<img src="docs/screens/home-light.png" width="300" />
+<img src="docs/screens/home-light.jpg" width="300" />
 
 **Tema Escuro**  
-<img src="docs/screens/home-dark.png" width="300" />
+<img src="docs/screens/home-dark.jpg" width="300" />
 
 ---
 
 ### 🔐 Login
 **Tema Claro**  
-<img src="docs/screens/login-light.png" width="300" />
+<img src="docs/screens/login-light.jpg" width="300" />
 
 **Tema Escuro**  
-<img src="docs/screens/login-dark.png" width="300" />
+<img src="docs/screens/login-dark.jpg" width="300" />
 
 ---
 
 ### ⚙️ Preferências
 **Tema Claro**  
-<img src="docs/screens/prefs-light.png" width="300" />
+<img src="docs/screens/prefs-light.jpg" width="300" />
 
 **Tema Escuro**  
-<img src="docs/screens/prefs-dark.png" width="300" />
+<img src="docs/screens/prefs-dark.jpg" width="300" />
 
 ---
 
