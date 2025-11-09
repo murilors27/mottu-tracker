@@ -123,6 +123,7 @@ Recursos implementados na versão final da aplicação para atender aos requisit
 | <img src="docs/screens/prefs-light.jpg" width="280" /> | <img src="docs/screens/prefs-dark.jpg" width="280" /> |
 
 </div>
+
 ---
 
 ## 🔗 Vídeo de Demonstração
