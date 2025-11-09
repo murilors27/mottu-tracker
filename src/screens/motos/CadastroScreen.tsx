@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import * as Notifications from "expo-notifications";
 import {
   View,
   Text,
@@ -103,6 +104,15 @@ export default function CadastroScreen() {
     try {
       setLoading(true);
       await createMoto(novaMoto);
+
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "🚨 Nova Moto Registrada",
+          body: `Modelo ${modelo} adicionada com sucesso.`,
+        },
+        trigger: null,
+      });
+
       Alert.alert("Sucesso", "Moto cadastrada com sucesso!");
       handleLimpar();
     } catch (err: any) {

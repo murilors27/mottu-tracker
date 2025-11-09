@@ -1,4 +1,5 @@
 import React from "react";
+import * as Notifications from "expo-notifications";
 import {
   NavigationContainer,
   DarkTheme,
@@ -27,6 +28,16 @@ import EditarMotoScreen from "./src/screens/motos/EditarMotoScreen";
 import SensoresScreen from "./src/screens/sensores/SensoresScreen";
 import CadastroSensorScreen from "./src/screens/sensores/CadastroSensorScreen";
 import EditarSensorScreen from "./src/screens/sensores/EditarSensorScreen";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () =>
+    ({
+      shouldShowBanner: true,
+      shouldShowList: true,
+      shouldPlaySound: false,
+      shouldSetBadge: false,
+    } as Notifications.NotificationBehavior),
+});
 
 const Stack = createNativeStackNavigator();
 
